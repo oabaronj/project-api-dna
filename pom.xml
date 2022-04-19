@@ -13,7 +13,7 @@
 	<artifactId>apidna</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>apidna</name>
-	<description>Api rest para procesar y descubrir cadenas de DNA mutante y humano V1</description>
+	<description>Api rest para procesar y descubrir cadenas de DNA mutante y humano V2</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
