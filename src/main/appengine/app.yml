@@ -1,5 +1,5 @@
-#runtime: java8
-#instance_class: F2
+runtime: java8
+instance_class: F2
 #Parametros de memoria y procesamiento
-#env_variables: 
-  #JAVA_TOOL_OPTIONS: "-XX:MaxRAM=1024m -XX:ActiveProcessorCount=2 -Xmx128m"
+env_variables: 
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAM=1024m -XX:ActiveProcessorCount=2 -Xmx128m"
