@@ -39,7 +39,7 @@ public class DnaControlador {
 	}
 	
 	@PostMapping(value="/mutant", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> procesarDna(@RequestBody HashMap<String, List<String>> json) throws Exception500, Exception422, Exception403,Exception  {
+	public ResponseEntity<Object> procesarDna(@RequestBody HashMap<String, List<String>> json) throws Exception500, Exception422, Exception403  {
 			
 		LOGGER.info("Validar DNA");
 		

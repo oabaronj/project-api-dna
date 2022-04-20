@@ -18,7 +18,7 @@ public class DnaServiceValidadorImpl implements DnaServiceValidadorLocal{
 	public static final Logger LOGGER = LoggerFactory.getLogger(DnaServiceValidadorImpl.class);
 	
 	@Override
-	public DnaRequestDTO validarNombreCampoDna(HashMap<String, List<String>> json) throws Exception{
+	public DnaRequestDTO validarNombreCampoDna(HashMap<String, List<String>> json) throws Exception422{
 		
 		LOGGER.info("Entro a metodo validarNombreCampoDna()");
 				

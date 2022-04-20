@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface DnaServiceValidadorLocal {
 	
-	DnaRequestDTO validarNombreCampoDna(HashMap<String, List<String>> json) throws Exception;
+	DnaRequestDTO validarNombreCampoDna(HashMap<String, List<String>> json) throws Exception422;
 	
 	void validarEsVacio(DnaRequestDTO dnaRequestDTO) throws Exception500;
 	
