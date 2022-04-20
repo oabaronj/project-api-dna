@@ -51,7 +51,7 @@ public class RequestExceptions {
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<ResponseExceptions> httpMessageNotReadableException(HttpMessageNotReadableException e){
-		String mensaje = "Debe enviar la secuencia de ADN dentro de un arreglo [] en el campo 'dna'";
+		String mensaje = "Debe enviar la secuencia de DNA dentro de un arreglo valido [] en el campo 'dna'";
 		LOGGER.error("Excepcion400: " + mensaje);
 		responseException = new ResponseExceptions(new Date(), 400, "Bad Request", mensaje);
 		return new ResponseEntity<>(responseException, HttpStatus.BAD_REQUEST);

@@ -44,7 +44,7 @@ public class DnaServiceValidadorImpl implements DnaServiceValidadorLocal{
 		}
 				
 		for(int i = 0; i < dnaRequestDTO.getStrCadenaDna().size();i++) {
-			if(dnaRequestDTO.getStrCadenaDna().get(i) == null) {
+			if(dnaRequestDTO.getStrCadenaDna().get(i) == null || dnaRequestDTO.getStrCadenaDna().get(i).isEmpty()) {
 				LOGGER.error("Excepcion500: No debe enviar segmentos de caracteres vacios o null. Segmento numero " + (i+1) + " esta vacio o null.");
 				throw new Exception500("No debe enviar segmentos de caracteres vacios o null. Segmento numero " + (i+1) + " esta vacio o null.");
 			}
@@ -59,8 +59,8 @@ public class DnaServiceValidadorImpl implements DnaServiceValidadorLocal{
 		for(int i = 0; i < dnaRequestDTO.getStrCadenaDna().size();i++) {
 			List<String> listaCaracteresSecuenciaDna = Arrays.asList(dnaRequestDTO.getStrCadenaDna().get(i).split(""));
 			if(dnaRequestDTO.getStrCadenaDna().size() != listaCaracteresSecuenciaDna.size()) {
-				LOGGER.error("Excepcion422: El numero de caracteres de cada segmento debe ser igual al numero total de secuencias dentro del arreglo, por ejemplo una secuencia de 4 segmentos por 4 caracteres cada una: [1234,1234,1234,1234]");
-				throw new Exception422("El numero de caracteres de cada segmento debe ser igual al numero total de secuencias dentro del arreglo, por ejemplo una secuencia de 4 segmentos por 4 caracteres cada una: [1234,1234,1234,1234]");
+				LOGGER.error("Excepcion422: El numero de caracteres de cada segmento debe ser igual al numero total de secuencias dentro del arreglo, por ejemplo una secuencia de 4 segmentos por 4 caracteres cada una: [1234,1234,1234,1234], Segmento numero " + (i+1) + " esta incompleto");
+				throw new Exception422("El numero de caracteres de cada segmento debe ser igual al numero total de secuencias dentro del arreglo, por ejemplo una secuencia de 4 segmentos por 4 caracteres cada una: [1234,1234,1234,1234], Segmento numero " + (i+1) + " esta incompleto");
 			}
 		}	
 	}
