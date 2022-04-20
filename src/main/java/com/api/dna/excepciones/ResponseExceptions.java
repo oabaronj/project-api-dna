@@ -12,13 +12,13 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Excepcion400 {
+public class ResponseExceptions {
 
 	private Date timestamp;
 	private int status;
 	private String error;
 	private String message;
-	private String path;
-	private String trace;
+	//private String path;
+	//private String trace;
 
 }

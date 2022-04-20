@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import com.api.dna.dto.DnaRequestDTO;
-import com.api.dna.excepciones.Excepcion422;
-import com.api.dna.excepciones.Excepcion500;
+import com.api.dna.excepciones.Exception422;
+import com.api.dna.excepciones.Exception500;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +18,13 @@ public class DnaServiceValidadorImpl implements DnaServiceValidadorLocal{
 	public static final Logger LOGGER = LoggerFactory.getLogger(DnaServiceValidadorImpl.class);
 	
 	@Override
-	public DnaRequestDTO validarNombreCampoDna(HashMap<String, List<String>> json) throws Excepcion422 {
+	public DnaRequestDTO validarNombreCampoDna(HashMap<String, List<String>> json) throws Exception{
 		
 		LOGGER.info("Entro a metodo validarNombreCampoDna()");
 				
 		if(!json.containsKey("dna")) {
-			LOGGER.error("Excepcion422: Nombre del campo enviado es incorrecto, solo se permite enviar la secuencia de DNA en el campo denominadoiar 'dna' en minuscula. En este campo se debe enviar la secuencia de DNA en un arreglo []");
-			throw new Excepcion422("Nombre del campo enviado es incorrecto, solo se permite enviar la secuencia de DNA en el campo denominado 'dna' en minuscula. En este campo se debe enviar la secuencia de DNA en un arreglo []");
+			LOGGER.error("Excepcion422: Nombre del campo o variable enviado es incorrecto, el campo o variable a enviar se debe llamar 'dna' en minuscula. Solo se permite enviar como parametro una secuencia de DNA por medio de un arreglo []");
+			throw new Exception422("Nombre del campo o variable enviado es incorrecto, el campo o variable a enviar se debe llamar 'dna' en minuscula. Solo se permite enviar como parametro una secuencia de DNA por medio de un arreglo []");
 		}
 		
 		DnaRequestDTO dnaRequestDTO = new DnaRequestDTO(json.get("dna"));
@@ -34,39 +34,39 @@ public class DnaServiceValidadorImpl implements DnaServiceValidadorLocal{
 	}
 	
 	@Override
-	public void validarEsVacio(DnaRequestDTO dnaRequestDTO) throws Excepcion500 {
+	public void validarEsVacio(DnaRequestDTO dnaRequestDTO) throws Exception500 {
 
 		LOGGER.info("Entro a metodo validarEsVacio()");
 		
 		if(dnaRequestDTO == null || dnaRequestDTO.getStrCadenaDna() == null || dnaRequestDTO.getStrCadenaDna().isEmpty()) {
-			LOGGER.error("Excepcion500: Secuencia de caracteres no debe estar vacia.");
-			throw new Excepcion500("Secuencia de caracteres no debe estar vacia.");
+			LOGGER.error("Excepcion500: Secuencia de caracteres no debe estar vacia o null.");
+			throw new Exception500("Secuencia de caracteres no debe estar vacia o null.");
 		}
 				
 		for(int i = 0; i < dnaRequestDTO.getStrCadenaDna().size();i++) {
 			if(dnaRequestDTO.getStrCadenaDna().get(i) == null) {
-				LOGGER.error("Excepcion500: Secuencia de caracteres no debe estar vacia.");
-				throw new Excepcion500("Secuencia de caracteres no debe estar vacia.");
+				LOGGER.error("Excepcion500: No debe enviar segmentos de caracteres vacios o null. Segmento numero " + (i+1) + " esta vacio o null.");
+				throw new Exception500("No debe enviar segmentos de caracteres vacios o null. Segmento numero " + (i+1) + " esta vacio o null.");
 			}
 		}	
 	} 
 	
 	@Override
-	public void validarLongitudSecuencia(DnaRequestDTO dnaRequestDTO) throws Excepcion422 {
+	public void validarLongitudSecuencia(DnaRequestDTO dnaRequestDTO) throws Exception422 {
 
 		LOGGER.info("Entro a metodo validarLongitudSecuencia()");
 		
 		for(int i = 0; i < dnaRequestDTO.getStrCadenaDna().size();i++) {
 			List<String> listaCaracteresSecuenciaDna = Arrays.asList(dnaRequestDTO.getStrCadenaDna().get(i).split(""));
 			if(dnaRequestDTO.getStrCadenaDna().size() != listaCaracteresSecuenciaDna.size()) {
-				LOGGER.error("Excepcion422: El numero de caracteres de cada secuencia debe ser igual al numero total de secuencias dentro del arreglo, por ejemplo 6x6");
-				throw new Excepcion422("El numero de caracteres de cada secuencia debe ser igual al numero total de secuencias dentro del arreglo, por ejemplo 6x6");
+				LOGGER.error("Excepcion422: El numero de caracteres de cada segmento debe ser igual al numero total de secuencias dentro del arreglo, por ejemplo una secuencia de 4 segmentos por 4 caracteres cada una: [1234,1234,1234,1234]");
+				throw new Exception422("El numero de caracteres de cada segmento debe ser igual al numero total de secuencias dentro del arreglo, por ejemplo una secuencia de 4 segmentos por 4 caracteres cada una: [1234,1234,1234,1234]");
 			}
 		}	
 	}
 	
 	@Override
-	public void validarCaracteresPermitidos(DnaRequestDTO dnaRequestDTO) throws Excepcion422 {
+	public void validarCaracteresPermitidos(DnaRequestDTO dnaRequestDTO) throws Exception422 {
 
 		LOGGER.info("Entro a metodo validarCaracteresPermitidos()");
 		
@@ -76,8 +76,8 @@ public class DnaServiceValidadorImpl implements DnaServiceValidadorLocal{
 			List<String> listaCaracteresSecuenciaDna = Arrays.asList(dnaRequestDTO.getStrCadenaDna().get(i).split(""));
 			for(int j = 0; j < listaCaracteresSecuenciaDna.size(); j++){
 				if(!caracteresPermitidos.contains(listaCaracteresSecuenciaDna.get(j))) {
-					LOGGER.error("Caracteres enviados en la secuencia numero " + (i+1) + " no son permitidos, los caracteres permitidos son: (" + caracteresPermitidos + ")");
-					throw new Excepcion422("Caracteres enviados en la secuencia numero " + (i+1) + " no son permitidos, los caracteres permitidos son: (" + caracteresPermitidos + ")");
+					LOGGER.error("Caracteres enviados en el segmento numero " + (i+1) + " no son permitidos, los caracteres permitidos son: (" + caracteresPermitidos + ")");
+					throw new Exception422("Caracteres enviados en el segmento numero " + (i+1) + " no son permitidos, los caracteres permitidos son: (" + caracteresPermitidos + ")");
 				}
 			}
 		}
@@ -203,13 +203,5 @@ public class DnaServiceValidadorImpl implements DnaServiceValidadorLocal{
 		//LOGGER.info("secuenciaEsValida: " + secuenciaEsValida + " " + secuenciaDna);
 		return secuenciaEsValida;
 	}
-	
-	/*private void mensajeExcepcion422(String mensaje) throws Excepcion422{
-		throw new Excepcion422(mensaje);
-	}
-	
-	private void mensajeExcepcion500(String mensaje) throws Excepcion500{
-		throw new Excepcion500(mensaje);
-	}*/
 
 }

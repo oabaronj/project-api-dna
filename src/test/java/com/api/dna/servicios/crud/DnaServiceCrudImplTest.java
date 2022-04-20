@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import com.api.dna.dto.DnaRequestDTO;
 import com.api.dna.dto.DnaResponseStatsDTO;
 import com.api.dna.entidades.DnaEntity;
-import com.api.dna.excepciones.Excepcion403;
+import com.api.dna.excepciones.Exception403;
 import com.api.dna.repositorios.DnaRepository;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,7 +47,7 @@ public class DnaServiceCrudImplTest {
 
 		when(this.dnaRepositoryMock.existsByStrCadenaDna(dnaRequestDTO.getStrCadenaDna().toString())).thenReturn(true);
 		Assertions.assertDoesNotThrow(() -> crud.saveDna(dnaRequestDTO, true));
-		Assertions.assertThrows(Excepcion403.class,() -> crud.saveDna(dnaRequestDTO, false));
+		Assertions.assertThrows(Exception403.class,() -> crud.saveDna(dnaRequestDTO, false));
 	}	
 	
 	@Test
@@ -76,7 +76,7 @@ public class DnaServiceCrudImplTest {
 		when(dnaRepositoryMock.save(any(DnaEntity.class))).thenReturn(dnaEntityResponse);
 		
 		Assertions.assertDoesNotThrow(() -> crud.saveDna(dnaRequestDTO, true));	
-		Assertions.assertThrows(Excepcion403.class, () -> crud.saveDna(dnaRequestDTO, false));		
+		Assertions.assertThrows(Exception403.class, () -> crud.saveDna(dnaRequestDTO, false));		
 	}
 	
 	@Test

@@ -10,7 +10,7 @@ import com.api.dna.dto.DnaRequestDTO;
 import com.api.dna.dto.DnaResponseDTO;
 import com.api.dna.dto.DnaResponseStatsDTO;
 import com.api.dna.entidades.DnaEntity;
-import com.api.dna.excepciones.Excepcion403;
+import com.api.dna.excepciones.Exception403;
 import com.api.dna.repositorios.DnaRepository;
 import com.api.dna.util.helpers.MHelpers;
 import org.springframework.stereotype.Component;
@@ -47,7 +47,7 @@ public class DnaServiceCrudImpl implements DnaServiceCrudLocal {
 	}
 
 	@Override
-	public void saveDna(DnaRequestDTO dnaRequestDTO, boolean esMutante) throws Excepcion403 {
+	public void saveDna(DnaRequestDTO dnaRequestDTO, boolean esMutante) throws Exception403 {
 		
 		if(!this.dnaRepository.existsByStrCadenaDna(dnaRequestDTO.getStrCadenaDna().toString())) {
 			LOGGER.info("DNA no existe en BD");
@@ -63,11 +63,11 @@ public class DnaServiceCrudImpl implements DnaServiceCrudLocal {
 				dnaEntityRequest.setStrEsMutante("N");
 				DnaEntity dnaEntityResponse = dnaRepository.save(dnaEntityRequest);
 				LOGGER.warn("DNA No Mutante: [" + dnaEntityResponse + "]");
-				throw new Excepcion403("Forbidden - DNA No Mutante");				
+				throw new Exception403("Forbidden - DNA No Mutante");				
 			}			
 		}else if(!esMutante) {			
 			LOGGER.warn("DNA existe en BD - DNA No Mutante");
-			throw new Excepcion403("Forbidden - DNA No Mutante");			
+			throw new Exception403("Forbidden - DNA No Mutante");			
 		}else {
 			LOGGER.info("DNA existe en BD - DNA Mutante");
 		}	

@@ -1,23 +1,19 @@
 package com.api.dna.controladores;
 
-import java.util.Date;
 import java.util.List;
 import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.api.dna.dto.DnaRequestDTO;
-import com.api.dna.excepciones.Excepcion400;
-import com.api.dna.excepciones.Excepcion403;
-import com.api.dna.excepciones.Excepcion422;
-import com.api.dna.excepciones.Excepcion500;
+import com.api.dna.excepciones.Exception403;
+import com.api.dna.excepciones.Exception422;
+import com.api.dna.excepciones.Exception500;
 import com.api.dna.servicios.crud.DnaServiceCrudLocal;
 import com.api.dna.servicios.validadores.DnaServiceValidadorLocal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,7 +39,7 @@ public class DnaControlador {
 	}
 	
 	@PostMapping(value="/mutant", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> procesarDna(@RequestBody HashMap<String, List<String>> json) throws Excepcion500, Excepcion422, Excepcion403  {
+	public ResponseEntity<Object> procesarDna(@RequestBody HashMap<String, List<String>> json) throws Exception500, Exception422, Exception403,Exception  {
 			
 		LOGGER.info("Validar DNA");
 		
@@ -68,18 +64,6 @@ public class DnaControlador {
 		LOGGER.info("Eliminar todos los DNA");
 		this.crud.deleteAll();
 		return new ResponseEntity<Object>("", HttpStatus.OK);
-	}
-	
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity<Excepcion400> httpMessageNotReadableException(HttpMessageNotReadableException e){
-		LOGGER.error("Excepcion400: Debe enviar la secuencia de ADN dentro de un arreglo [] en el campo 'dna'");
-		Excepcion400 excepcion400 = new Excepcion400(new Date(), 
-													 400, 
-													 "Bad Request",  
-													 "Debe enviar la secuencia de ADN dentro de un arreglo [] en el campo 'dna'",
-													 "/mutant",
-													 e.getMessage());
-		return new ResponseEntity<>(excepcion400, HttpStatus.BAD_REQUEST);
 	}
 	
 }

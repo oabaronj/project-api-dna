@@ -1,4 +1,4 @@
-runtime: java8
+runtime: java11
 instance_class: F2
 #Parametros de memoria y procesamiento
 env_variables: 

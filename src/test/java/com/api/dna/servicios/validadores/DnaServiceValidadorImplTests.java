@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.junit.jupiter.api.Assertions;
 import com.api.dna.dto.DnaRequestDTO;
-import com.api.dna.excepciones.Excepcion403;
-import com.api.dna.excepciones.Excepcion422;
-import com.api.dna.excepciones.Excepcion500;
+import com.api.dna.excepciones.Exception403;
+import com.api.dna.excepciones.Exception422;
+import com.api.dna.excepciones.Exception500;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,19 +44,19 @@ public class DnaServiceValidadorImplTests {
 	}
 	
 	@Test
-	public void validarEsVacioExcepcionTest() throws Excepcion500 {
+	public void validarEsVacioExcepcionTest() throws Exception500 {
 		
 		LOGGER.info("Entro a metodo validarEsVacioExcepcionTest()");
 		
 		DnaRequestDTO dnaRequestDTO = new DnaRequestDTO();
 		dnaRequestDTO.setStrCadenaDna(new ArrayList<String>());
 		
-		Assertions.assertThrows(Excepcion500.class, () -> validador.validarEsVacio(null));
-		Assertions.assertThrows(Excepcion500.class, () -> validador.validarEsVacio(new DnaRequestDTO()));
-		Assertions.assertThrows(Excepcion500.class, () -> validador.validarEsVacio(dnaRequestDTO));
+		Assertions.assertThrows(Exception500.class, () -> validador.validarEsVacio(null));
+		Assertions.assertThrows(Exception500.class, () -> validador.validarEsVacio(new DnaRequestDTO()));
+		Assertions.assertThrows(Exception500.class, () -> validador.validarEsVacio(dnaRequestDTO));
 		
 		dnaRequestDTO.getStrCadenaDna().add(null);
-		Assertions.assertThrows(Excepcion500.class, () -> validador.validarEsVacio(dnaRequestDTO));		
+		Assertions.assertThrows(Exception500.class, () -> validador.validarEsVacio(dnaRequestDTO));		
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ public class DnaServiceValidadorImplTests {
 	}
 	
 	@Test
-	public void validarLongitudSecuenciaExcepcionTest() throws Excepcion422 {
+	public void validarLongitudSecuenciaExcepcionTest() throws Exception422 {
 		
 		LOGGER.info("Entro a metodo validarLongitudSecuenciaExcepcionTest()");
 		
@@ -88,7 +88,7 @@ public class DnaServiceValidadorImplTests {
 		dnaRequestDTO.getStrCadenaDna().add("ATGCGA");
 		dnaRequestDTO.getStrCadenaDna().add("CAGTGC");
 		
-		Assertions.assertThrows(Excepcion422.class, () -> validador.validarLongitudSecuencia(dnaRequestDTO));				
+		Assertions.assertThrows(Exception422.class, () -> validador.validarLongitudSecuencia(dnaRequestDTO));				
 	}
 		
 	@Test
@@ -106,7 +106,7 @@ public class DnaServiceValidadorImplTests {
 	}
 	
 	@Test
-	public void validarCaracteresPermitidosExcepcionTest() throws Excepcion422 {
+	public void validarCaracteresPermitidosExcepcionTest() throws Exception422 {
 		
 		LOGGER.info("Entro a metodo validarCaracteresPermitidosExcepcionTest()");
 		
@@ -116,11 +116,11 @@ public class DnaServiceValidadorImplTests {
 		dnaRequestDTO.getStrCadenaDna().add("XTGI*A");
 		dnaRequestDTO.getStrCadenaDna().add("C G+GC");
 
-		Assertions.assertThrows(Excepcion422.class, () -> validador.validarCaracteresPermitidos(dnaRequestDTO));				
+		Assertions.assertThrows(Exception422.class, () -> validador.validarCaracteresPermitidos(dnaRequestDTO));				
 	}
 	
 	@Test
-	public void isMutantTest() throws Excepcion403 {
+	public void isMutantTest() throws Exception403 {
 		
 		LOGGER.info("Entro a metodo  isMutantTest()");
 		
@@ -136,7 +136,7 @@ public class DnaServiceValidadorImplTests {
 	}
 	
 	@Test
-	public void isNotMutantTest() throws Excepcion403 {
+	public void isNotMutantTest() throws Exception403 {
 		
 		LOGGER.info("Entro a metodo isNotMutantTest()");
 		
