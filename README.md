@@ -1,11 +1,9 @@
 # project-api-dna
 Api rest para procesar y descubrir cadenas de DNA mutante y humano
 
-1 - URL para comprobar si una secuencia es DNA mutante o humano (Método POST):
-https://project-api-dna.uc.r.appspot.com/mutant
-
 Instrucciones:
-Se debe enviar una secuencia de DNA por medio del método POST por medio de un archivo JSON utilizando una herramienta como postman, con la siguiente estructura de ejemplo:
+
+1 - Se debe enviar una secuencia de DNA por medio del método POST (/mutant) por medio de un archivo JSON utilizando una herramienta como postman, con la siguiente estructura de ejemplo:
 
 {
     "dna":["ATGCCA","CAGTGC","TTATGT","AGAAGG","CCCTTA","TCACTG"]
@@ -13,7 +11,7 @@ Se debe enviar una secuencia de DNA por medio del método POST por medio de un a
 
 
 2 - URL para obtener estadísticas del DNA mutante y humano que se han procesado (Método GET):
-https://project-api-dna.uc.r.appspot.com/stats
+/stats/
 
 Instrucciones:
 Se debe hacer solicitud por medio del método GET utilizando una herramienta como postman, no es necesario enviar parámetros.
